@@ -1,4 +1,6 @@
+/* API CONFIG SCREEN */
 {
-  "baseURL": "https://via.placeholder.com/800x600/BD463C",
-  "baseURL2": "https://via.placeholder.com/800x800/2C3B11"
+  "baseURL1": "https://via.placeholder.com/800x600",
+  "baseURL2": "https://via.placeholder.com/600x1000",
+  "baseURL3": "https://via.placeholder.com/800x800"
 }

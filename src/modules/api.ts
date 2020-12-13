@@ -1,4 +1,4 @@
-const api1 = [
+export const api1 = [
   {url: 'https://via.placeholder.com/800x600/BD463C'},
   {url: 'https://via.placeholder.com/800x600/7A2E27'},
   {url: 'https://via.placeholder.com/800x600/FA5E50'},
@@ -6,7 +6,7 @@ const api1 = [
   {url: 'https://via.placeholder.com/800x600/E05548'},
 ];
 
-const api2 = {
+export const api2 = {
   images: [
     {link: 'https://via.placeholder.com/600x1000/468DBD'},
     {link: 'https://via.placeholder.com/600x1000/2D5C7A'},
@@ -16,7 +16,7 @@ const api2 = {
   ],
 };
 
-const api3 = {
+export const api3 = {
   swipers: [
     {
       swiper: {
@@ -30,4 +30,10 @@ const api3 = {
       },
     },
   ],
+};
+
+export default {
+  api1,
+  api2,
+  api3,
 };

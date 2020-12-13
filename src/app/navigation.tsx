@@ -1,9 +1,9 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, View, StatusBar, Text} from 'react-native';
-
-import Home from '../scenes/home/home';
-//import HomeDetails from '../scenes/homeDetails/HomeDetails';
+import {SafeAreaView, StyleSheet, View, StatusBar} from 'react-native';
 import {COLORS} from '../constants/index';
+
+//screens
+import Home from '../scenes/home/home';
 
 const App = () => {
   return (
@@ -19,7 +19,7 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {flex: 1, margin: 10, backgroundColor: COLORS.gray},
+  container: {flex: 1, backgroundColor: COLORS.white},
 });
 
 export default App;

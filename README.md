@@ -1,5 +1,6 @@
 ### Task List - Mehmet Salih AKCAN
 
 - [x] Setup folder structures.
-- [x] app connected redux.
-- [] Setup image swipe.
+- [x] App connected redux.
+- [x] Setup image swipe.
+- [ ] Test
