@@ -12,7 +12,7 @@ import {
 //interfaces
 import {ICustomer} from '../../modules/home/reducers/reducers';
 // redux actions
-import {getCards} from '../../modules/home/actions/actions';
+import {getCard} from '../../modules/home/actions/actions';
 import {useDispatch, useSelector} from 'react-redux';
 
 //constants
@@ -26,7 +26,7 @@ const PanResponderExample = () => {
   const defaultProps = {
     //default props
     onSwipeRight: (item: string) => {
-      console.log(' default onSwipeRight : ', item);
+      console.log(' default onSwipeRight  : ', item);
     },
     onSwipeLeft: (item: string) => {
       console.log(' default onSwipeLeft : ', item);
@@ -36,14 +36,14 @@ const PanResponderExample = () => {
   //Global state
   const dispatch = useDispatch();
   const home = useSelector((state: {home: ICustomer}) => state.home);
-  const cardArray = home.data;
+  const {url, cardSize} = home;
 
   if (home.error !== '') {
     Alert.alert('Bir Sorun Oluştu!', '' + home.error);
   }
 
   const [position, setPosition] = useState(new Animated.ValueXY());
-  const [index, setIndex] = useState(0);
+
   const [panResponder, setPanResponder] = useState(
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
@@ -66,8 +66,8 @@ const PanResponderExample = () => {
   );
 
   useEffect(() => {
-    if (home.data.url === undefined || home.data.url === '') {
-      dispatch(getCards());
+    if (home.url === undefined || home.url === '') {
+      dispatch(getCard(cardSize));
     }
   }, [dispatch]);
 
@@ -84,14 +84,14 @@ const PanResponderExample = () => {
 
   const onSwipeComplete = (direction: string) => {
     const {onSwipeRight, onSwipeLeft} = defaultProps;
-    const item = cardArray[index];
-    direction === 'right' ? onSwipeRight(item) : onSwipeLeft(item);
 
-    dispatch(getCards()).then(() => {
-      // iteration new card position
+    direction === 'right' ? onSwipeRight(url) : onSwipeLeft(url);
+
+    dispatch(getCard(cardSize));
+
+    setTimeout(() => {
       position.setValue({x: 0, y: 0});
-      setIndex((index) => index + 1);
-    });
+    }, 300);
   };
   const resetPosition = () => {
     Animated.spring(position, {
@@ -109,40 +109,22 @@ const PanResponderExample = () => {
       transform: [{rotate}],
     };
   }
-  const RenderCard = ({item: string, cardIndex: number}) => {
-    return <Image style={styles.image} source={{uri: item}} />;
-  };
 
   const renderCards = () => {
-    return cardArray.map((item, i) => {
-      // handle finished swipe
-      if (index === cardArray.length) {
-        //biterse baştan başlat
-        setIndex(0);
-      }
-
-      if (i < index) {
-        return null;
-      }
-      if (i === index) {
-        return (
-          <Animated.View
-            key={i}
-            style={getCardStyle()}
-            {...panResponder.panHandlers}>
-            <Image style={styles.image} source={{uri: item.url}} />
-          </Animated.View>
-        );
-      }
-
-      return <RenderCard key={i} item={item.url} cardIndex={i} />;
-    });
+    if (url === null || url === '') {
+      return null;
+    }
+    return (
+      <Animated.View style={getCardStyle()} {...panResponder.panHandlers}>
+        <Image style={styles.image} source={{uri: home.url}} />
+      </Animated.View>
+    );
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>source</Text>
-      <Text style={styles.description}>{cardArray[0].url}</Text>
+      <Text style={styles.description}>{home.url ? home.url : null}</Text>
       <View style={styles.content}>{renderCards()}</View>
     </View>
   );

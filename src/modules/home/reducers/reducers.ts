@@ -3,15 +3,17 @@ import * as actionTypes from '../actionTypes';
 export interface ICustomer {
   userId: number;
   name: string;
-  data: Array<Object>;
+  url: string;
   error: string;
+  cardSize: string;
 }
 
 const initialState: ICustomer = {
   userId: null,
   name: '',
-  data: [{url: ''}],
+  url: '',
   error: '',
+  cardSize: '800x600',
 };
 
 export default (state = initialState, action: any): ICustomer => {
@@ -21,17 +23,23 @@ export default (state = initialState, action: any): ICustomer => {
         ...state,
         userId: action.payload,
       };
-    case actionTypes.GET_CARDS:
+    case actionTypes.GET_URL:
       console.log(action.payload);
       return {
         ...state,
-        data: [{url: action.payload}],
+        url: action.payload,
       };
 
     case actionTypes.FAILED:
       return {
         ...state,
         error: action.payload,
+      };
+
+    case actionTypes.CHANGE_CARD_SIZE:
+      return {
+        ...state,
+        cardSize: action.payload,
       };
     default:
       return state;
